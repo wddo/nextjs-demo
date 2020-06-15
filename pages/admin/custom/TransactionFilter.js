@@ -8,7 +8,7 @@ export default class TransactionFilter extends Component {
 
   render() {
     return (
-      <Form initialValues={{ transactionResult: "all" }}>
+      <Form.Item noStyle>
         <Row gutter={[10, 0]}>
           <Col>
             <Form.Item name="transitionId" label="트랜지션ID" colon={false}>
@@ -17,8 +17,9 @@ export default class TransactionFilter extends Component {
           </Col>
           <Col>
             <Form.Item name="transactionResult" label="거래결과" colon={false}>
-              <Select>
+              <Select value={this.props.reslut} onChange={this.props.changeReslut} >
                 <Select.Option value="all">전체</Select.Option>
+                <Select.Option value="value1">값1</Select.Option>
               </Select>
             </Form.Item>
           </Col>
@@ -59,7 +60,7 @@ export default class TransactionFilter extends Component {
             </Form.Item>
           </Col>
         </Row>
-      </Form>
+      </Form.Item>
     )
   }
 }

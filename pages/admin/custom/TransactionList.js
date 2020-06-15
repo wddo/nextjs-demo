@@ -5,7 +5,7 @@ import { SnippetsOutlined } from "@ant-design/icons"
 import moment from "moment";
 import styles from './transaction.module.less'
 
-const dateFormat = "YYYY/MM/DD hh:mm:ss";
+const dateFormat = "YYYY/MM/DD, hh:mm:ss a"
 
 const columns = [
   {
@@ -91,28 +91,23 @@ const columns = [
   },
 ]
 
-const dataSource = [
-  {
-    key: 1,
-    child: true,
-    time: moment(new Date()).format(dateFormat),
-    transactionId: "1111111111111111111111",
-    transactionResult: "보정필요",
-    bookingCode: "HA1234567890",
-    userNum: "C200000134",
-    apiName: "airRes",
-    destination: "DOT_PC",
-    departures: "API GW",
-    guid: "csdfjksdlfj3sdfdskf23124sdfdksf",
-    modify: ["cancel"],
-    state: true,
-    children: [
+export default class TransactionList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dataSource: []
+    };
+  }
+
+  componentDidMount() {
+    this.setState({dataSource : [
       {
-        key: 11,
-        child: 1,
-        time: moment(new Date()).format(dateFormat),
+        key: 1,
+        child: true,
+        time: moment().format(dateFormat),
         transactionId: "1111111111111111111111",
-        transactionResult: "보상완료",
+        transactionResult: "보정필요",
         bookingCode: "HA1234567890",
         userNum: "C200000134",
         apiName: "airRes",
@@ -120,46 +115,61 @@ const dataSource = [
         departures: "API GW",
         guid: "csdfjksdlfj3sdfdskf23124sdfdksf",
         modify: ["cancel"],
-        state: true
+        state: true,
+        children: [
+          {
+            key: 11,
+            child: 1,
+            time: moment().format(dateFormat),
+            transactionId: "1111111111111111111111",
+            transactionResult: "보상완료",
+            bookingCode: "HA1234567890",
+            userNum: "C200000134",
+            apiName: "airRes",
+            destination: "DOT_PC",
+            departures: "API GW",
+            guid: "csdfjksdlfj3sdfdskf23124sdfdksf",
+            modify: ["cancel"],
+            state: true
+          },
+          {
+            key: 12,
+            child: 2,
+            time: moment().format(dateFormat),
+            transactionId: "1111111111111111111111",
+            transactionResult: "오류",
+            bookingCode: "HA1234567890",
+            userNum: "C200000134",
+            apiName: "airRes",
+            destination: "DOT_PC",
+            departures: "API GW",
+            guid: "csdfjksdlfj3sdfdskf23124sdfdksf",
+            modify: ["cancel"],
+            state: true
+          }
+        ]
       },
       {
-        key: 12,
-        child: 2,
-        time: moment(new Date()).format(dateFormat),
+        key: 2,
+        child: false,
+        time: moment().format(dateFormat),
         transactionId: "1111111111111111111111",
-        transactionResult: "오류",
+        transactionResult: "정상",
         bookingCode: "HA1234567890",
-        userNum: "C200000134",
+        userName: "C200000134",
         apiName: "airRes",
         destination: "DOT_PC",
         departures: "API GW",
         guid: "csdfjksdlfj3sdfdskf23124sdfdksf",
-        modify: ["cancel"],
+        modify: ["retry", "skip"],
         state: true
       }
-    ]
-  },
-  {
-    key: 2,
-    child: false,
-    time: moment(new Date()).format(dateFormat),
-    transactionId: "1111111111111111111111",
-    transactionResult: "정상",
-    bookingCode: "HA1234567890",
-    userName: "C200000134",
-    apiName: "airRes",
-    destination: "DOT_PC",
-    departures: "API GW",
-    guid: "csdfjksdlfj3sdfdskf23124sdfdksf",
-    modify: ["retry", "skip"],
-    state: true
+    ]})
   }
-]
 
-export default class TransactionList extends Component {
   render() {
     return (
-      <Table columns={columns} dataSource={dataSource}
+      <Table columns={columns} dataSource={this.state.dataSource}
         expandable = {{
           indentSize: 0,
           expandIcon: null
