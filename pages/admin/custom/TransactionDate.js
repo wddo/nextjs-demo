@@ -25,7 +25,7 @@ export default class TransactionDate extends Component {
                 <DatePicker initialValues={moment('2015/01/01', dateFormat)} format={dateFormat} />
               </Col>
               <Col>
-                <Radio.Group value={this.props.fromDate} onChange={this.props.changeFromDate} >
+                <Radio.Group value={this.props.pageCommonData.searchFromDate} onChange={this.props.mainFunction.changeSearchFromDate} >
                   <Radio.Button value="1m">1분</Radio.Button>
                   <Radio.Button value="10m">10분</Radio.Button>
                   <Radio.Button value="30m">30분</Radio.Button>

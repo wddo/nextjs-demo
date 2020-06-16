@@ -3,9 +3,11 @@ import { Table, Typography, Button, Space } from "antd"
 import { SnippetsOutlined } from "@ant-design/icons"
 
 import moment from "moment";
-import styles from './transaction.module.less'
+import styles from "./transaction.module.less"
 
 const dateFormat = "YYYY/MM/DD, hh:mm:ss a"
+
+let localPops;
 
 const columns = [
   {
@@ -71,7 +73,7 @@ const columns = [
     title: "보정",
     dataIndex: "modify",
     key: "modify",
-    render: (buttons) => {
+    render: buttons => {
       const children = [];
 
       _.forEach(buttons, (item, idx) => {
@@ -86,7 +88,7 @@ const columns = [
     dataIndex: "state",
     key: "state",
     render: editabled => {
-      return <Button type="text"><SnippetsOutlined /></Button>
+      return editabled ? <Button type="text"><SnippetsOutlined onClick={localPops.mainFunction.openDetail} /></Button> : null
     }
   },
 ]
@@ -98,6 +100,8 @@ export default class TransactionList extends Component {
     this.state = {
       dataSource: []
     };
+
+    localPops = this.props
   }
 
   componentDidMount() {
@@ -115,7 +119,7 @@ export default class TransactionList extends Component {
         departures: "API GW",
         guid: "csdfjksdlfj3sdfdskf23124sdfdksf",
         modify: ["cancel"],
-        state: true,
+        state: false,
         children: [
           {
             key: 11,
@@ -123,8 +127,8 @@ export default class TransactionList extends Component {
             time: moment().format(dateFormat),
             transactionId: "1111111111111111111111",
             transactionResult: "보상완료",
-            bookingCode: "HA1234567890",
-            userNum: "C200000134",
+            bookingCode: "",
+            userNum: "",
             apiName: "airRes",
             destination: "DOT_PC",
             departures: "API GW",
@@ -138,8 +142,8 @@ export default class TransactionList extends Component {
             time: moment().format(dateFormat),
             transactionId: "1111111111111111111111",
             transactionResult: "오류",
-            bookingCode: "HA1234567890",
-            userNum: "C200000134",
+            bookingCode: "",
+            userNum: "",
             apiName: "airRes",
             destination: "DOT_PC",
             departures: "API GW",
@@ -156,7 +160,7 @@ export default class TransactionList extends Component {
         transactionId: "1111111111111111111111",
         transactionResult: "정상",
         bookingCode: "HA1234567890",
-        userName: "C200000134",
+        userNum: "C200000134",
         apiName: "airRes",
         destination: "DOT_PC",
         departures: "API GW",

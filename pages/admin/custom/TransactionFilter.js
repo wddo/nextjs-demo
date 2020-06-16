@@ -17,7 +17,7 @@ export default class TransactionFilter extends Component {
           </Col>
           <Col>
             <Form.Item name="transactionResult" label="거래결과" colon={false}>
-              <Select value={this.props.reslut} onChange={this.props.changeReslut} >
+              <Select value={this.props.pageCommonData.transactionResult} onChange={this.props.mainFunction.changeTransactionResult} >
                 <Select.Option value="all">전체</Select.Option>
                 <Select.Option value="value1">값1</Select.Option>
               </Select>
